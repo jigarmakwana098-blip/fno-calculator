@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>F&O Trading Calculator</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    padding: 20px;
+}
+h2 { text-align: center; }
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+input {
+    padding: 8px;
+    margin: 5px;
+    width: 150px;
+}
+button {
+    padding: 10px 15px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+th { background: #e9ecef; }
+.profit { background: #d4edda; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>F&O Trading Calculator</h2>
+
+Available Fund: <input type="number" id="fund" value="9300"><br>
+Buy Price: <input type="number" id="buy" value="39.75"><br>
+Target Price: <input type="number" id="target" value="59.75"><br>
+Lot Qty (per lot): <input type="number" id="lotQty" value="75"><br><br>
+
+<button onclick="calculate()">Calculate</button>
+
+<table>
+<thead>
+<tr>
+<th>Lot Size</th>
+<th>Total QTY</th>
+<th>Buy Price</th>
+<th>Target Price</th>
+<th>Actual Investment</th>
+<th>Target Value</th>
+<th>Profit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td id="lotSize">-</td>
+<td id="qty">-</td>
+<td id="buyP">-</td>
+<td id="targetP">-</td>
+<td id="invest">-</td>
+<td id="targetVal">-</td>
+<td class="profit" id="profit">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<script>
+function calculate() {
+    let fund = parseFloat(document.getElementById("fund").value);
+    let buy = parseFloat(document.getElementById("buy").value);
+    let target = parseFloat(document.getElementById("target").value);
+    let lotQty = parseInt(document.getElementById("lotQty").value);
+
+    let lotSize = Math.floor(fund / (buy * lotQty));
+    let qty = lotSize * lotQty;
+    let investment = qty * buy;
+    let targetValue = qty * target;
+    let profit = targetValue - investment;
+
+    document.getElementById("lotSize").innerText = lotSize.toFixed(2);
+    document.getElementById("qty").innerText = qty;
+    document.getElementById("buyP").innerText = buy.toFixed(2);
+    document.getElementById("targetP").innerText = target.toFixed(2);
+    document.getElementById("invest").innerText = investment.toFixed(2);
+    document.getElementById("targetVal").innerText = targetValue.toFixed(2);
+    document.getElementById("profit").innerText = profit.toFixed(2);
+}
+</script>
+
+</body>
+</html>
